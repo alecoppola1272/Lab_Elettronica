@@ -35,10 +35,10 @@ void diodoSi()
     TCanvas *c = new TCanvas("Silcio");
     c->SetLogy();
 
-    Float_t x[15] = {380, 400, 420, 450, 480, 500, 520, 550, 580, 600, 620, 640, 680, 720, 760};             // Dati tensiome
-    Float_t y[15] = {0.01, 0.01, 0.01, 0.02, 0.04, 0.06, 0.08, 0.14, 0.25, 0.4, 0.58, 0.9, 1.81, 3.49, 6.6}; // Dati corrente
-    Float_t ex[15] = {0};                                                                                    // errori su tensione
-    Float_t ey[15] = {0};                                                                                    // errori su corrente
+    Float_t x[15] = {380, 400, 420, 450, 480, 500, 520, 550, 580, 600, 620, 640, 680, 720, 760};                                // Dati tensiome
+    Float_t y[15] = {0.01, 0.01, 0.01, 0.02, 0.04, 0.06, 0.08, 0.14, 0.25, 0.4, 0.58, 0.9, 1.81, 3.49, 6.6};                    // Dati corrente
+    Float_t ex[15] = {15.84, 16.28, 16.73, 17.41, 18.12, 18.60, 19.09, 19.83, 20.59, 27.66, 28.05, 28.45, 29.28, 30.13, 31.00}; // errori su tensione
+    Float_t ey[15] = {0.02, 0.02, 0.02, 0.02, 0.02, 0.02, 0.02, 0.02, 0.02, 0.03, 0.03, 0.03, 0.05, 0.07, 0.12};                // errori su corrente
 
     TGraphErrors *graph = new TGraphErrors(15, x, y, ex, ey);
     graph->SetTitle("Diodo al Si");
@@ -51,14 +51,8 @@ void diodoSi()
     f->SetParName(0, "I0");
     f->SetParName(1, "EtaVt");
     f->SetParameter(0, 1e-6);
-    f->SetParameter(1, .50);
+    f->SetParameter(1, 50);
 
     graph->Fit("f");
     TF1 *fit = graph->GetFunction("f");
-
-    /*TLegend *leg = new TLegend(.1,.7,.3,.9,"legenda");
-    leg->AddEntry(graph,"punti sperimentali");
-    leg->AddEntry(f,"curva di fit");
-    leg->Draw("same");
-    */
 }
